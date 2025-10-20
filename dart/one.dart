@@ -1,15 +1,24 @@
-class Point {
-  int x, y;
-  Point(this.x, this.y);
+mixin Fly {
+  void fly() {
+    print("我会飞！");
+  }
+}
 
-  Point operator +(Point other) => Point(x + other.x, y + other.y);
+mixin Swim {
+  void swim() {
+    print("我会游泳！");
+  }
+}
 
-  @override
-  String toString() => "($x, $y)";
+class Duck with Fly, Swim {
+  void show() {
+    print("我是鸭子");
+  }
 }
 
 void main() {
-  var p1 = Point(1, 2);
-  var p2 = Point(3, 4);
-  print(p1 + p2); // (4, 6)
+  var duck = Duck();
+  duck.show();
+  duck.fly();
+  duck.swim();
 }
