@@ -1,24 +1,20 @@
-mixin Fly {
-  void fly() {
-    print("我会飞！");
+import 'dart:isolate';
+
+void backgroundTask(SendPort sendPort) async {
+  int counter = 0;
+  while (true) {
+    await Future.delayed(Duration(seconds: 1));
+    counter++;
+    sendPort.send("后台运行 $counter 秒");
+    if (counter >= 5) break;
   }
 }
 
-mixin Swim {
-  void swim() {
-    print("我会游泳！");
-  }
-}
+void main() async {
+  ReceivePort receivePort = ReceivePort();
+  await Isolate.spawn(backgroundTask, receivePort.sendPort);
 
-class Duck with Fly, Swim {
-  void show() {
-    print("我是鸭子");
+  await for (var msg in receivePort) {
+    print(msg);
   }
-}
-
-void main() {
-  var duck = Duck();
-  duck.show();
-  duck.fly();
-  duck.swim();
 }
