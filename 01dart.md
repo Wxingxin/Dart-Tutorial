@@ -1,7 +1,7 @@
 # 1
 
-一、Dart语言的入口也是main函数，并且必须显示的进行定义；
-二、Dart的入口函数main是没有返回值的；
+一、Dart语言的入口也是main函数，并且必须显示的进行定义
+二、Dart的入口函数main是<font color=red>没有返回值的</font>
 三、传递给main的命令行参数，是通过 List<String>完成的。
 从字面值就可以理解解List是Dart中的集合类型。
 其中的每一个String都表示传递给main的一个参数；
