@@ -1,32 +1,29 @@
+class Student {
+  final String name;
+
+  // 缓存所有创建的 Student
+  static final Map<String, Student> _cache = {};
+
+  // 私有构造函数
+  Student._internal(this.name);
+
+  // 工厂构造函数：如果已有缓存，就复用
+  factory Student(String name) {
+    if (_cache.containsKey(name)) {
+      return _cache[name]!;
+    } else {
+      final newStudent = Student._internal(name);
+      _cache[name] = newStudent;
+      return newStudent;
+    }
+  }
+}
+
 void main() {
-  int age = 20;
-  double prince = 12.22;
-  num total = 100;
-  total = 99.9;
+  var s1 = Student('Alice');
+  var s2 = Student('Alice');
+  var s3 = Student('Bob');
 
-  print(age);
-  print(age * total);
-
-  print(0.1 + 0.2 == 0.3);
-
-  print(prince);
-
-  //////
-  String s1 = 'hello';
-  String s2 = 'world';
-  String s3 = '''
-gao li xin🤣
-wei jia xing😒
-''';
-
-  print(s1);
-  print(s2);
-  print(s3);
-
-  print('$s1 you is $age');
-
-  ///
-  bool isDone = true;
-  bool isActive = false;
-  
+  print(identical(s1, s2)); // true
+  print(identical(s1, s3)); // false
 }
