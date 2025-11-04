@@ -1,29 +1,20 @@
-class Student {
-  final String name;
+class User {
+  String name;
+  int age;
+  User(this.name, this.age);
+}
 
-  // 缓存所有创建的 Student
-  static final Map<String, Student> _cache = {};
+class Repository<T> {
+  final List<T> _data = [];
 
-  // 私有构造函数
-  Student._internal(this.name);
-
-  // 工厂构造函数：如果已有缓存，就复用
-  factory Student(String name) {
-    if (_cache.containsKey(name)) {
-      return _cache[name]!;
-    } else {
-      final newStudent = Student._internal(name);
-      _cache[name] = newStudent;
-      return newStudent;
-    }
-  }
+  void add(T item) => _data.add(item);
+  void showAll() => _data.forEach((item) => print(item));
 }
 
 void main() {
-  var s1 = Student('Alice');
-  var s2 = Student('Alice');
-  var s3 = Student('Bob');
+  var userRepo = Repository<User>();
+  userRepo.add(User("张三", 20));
+  userRepo.add(User("李四", 22));
 
-  print(identical(s1, s2)); // true
-  print(identical(s1, s3)); // false
+  userRepo.showAll(); // 输出: Instance of 'User'...
 }
